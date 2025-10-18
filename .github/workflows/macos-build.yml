@@ -41,7 +41,7 @@ jobs:
             --noconfirm
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-maxcut_cli
           path: scripts/dist/maxcut_cli
