@@ -6,6 +6,7 @@ on:
       - 'scripts/**'
       - 'license.key'
       - 'examples/**'
+      - '.github/workflows/**'
 
 jobs:
   build-macos:
