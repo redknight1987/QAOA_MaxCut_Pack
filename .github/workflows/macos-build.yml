@@ -1,0 +1,46 @@
+name: Build macOS Binary
+
+on:
+  push:
+    paths:
+      - 'scripts/**'
+      - 'license.key'
+      - 'examples/**'
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install networkx pyinstaller
+
+      - name: Build macOS executable
+        run: |
+          cd scripts
+          rm -rf build dist
+          pyinstaller --clean maxcut_cli.py \
+            --onefile \
+            --name maxcut_cli \
+            --paths .. \
+            --add-data "license.key:." \
+            --runtime-hook hook_force_dist_first.py \
+            --noconfirm
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-maxcut_cli
+          path: scripts/dist/maxcut_cli
