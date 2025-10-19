@@ -29,6 +29,7 @@ jobs:
           pip install networkx pyinstaller
 
       - name: Build macOS executable
+         working-directory: scripts
         run: |
           cd scripts
           rm -rf build dist
