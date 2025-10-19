@@ -29,10 +29,10 @@ jobs:
           pip install networkx pyinstaller
 
       - name: Build macOS executable
+        working-directory: ./scripts
         run: |
-          cd scripts
-          rm -rf build dist
-          pyinstaller --clean maxcut_cli.py \
+            rm -rf build dist
+            pyinstaller --clean maxcut_cli.py \
             --onefile \
             --name maxcut_cli \
             --paths .. \
