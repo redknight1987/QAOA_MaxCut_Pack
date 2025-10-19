@@ -1,3 +1,5 @@
+---
+---
 # QAOA MaxCut CLI Documentation
 
 Welcome to the official documentation for the QAOA MaxCut CLI tool. Here you’ll find usage guides, examples, and reference material to help you get started.
