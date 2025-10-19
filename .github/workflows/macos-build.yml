@@ -29,18 +29,20 @@ jobs:
           pip install networkx pyinstaller
 
       - name: Build macOS executable
-        working-directory: scripts
         run: |
-            rm -rf build dist
-            pyinstaller --clean maxcut_cli.py \
+          # clean old build artifacts
+          rm -rf scripts/build scripts/dist
+
+          # build from the scripts directory without cd
+          pyinstaller --clean scripts/maxcut_cli.py \
             --onefile \
             --name maxcut_cli \
-            --paths .. \
+            --paths . \
             --add-data "license.key:." \
-            --runtime-hook hook_force_dist_first.py \
+            --runtime-hook scripts/hook_force_dist_first.py \
             --noconfirm
 
-      - name: Upload artifact
+      - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: macos-maxcut_cli
