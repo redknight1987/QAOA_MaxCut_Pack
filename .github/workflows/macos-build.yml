@@ -21,19 +21,20 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Install dependencies
+      - name: Create venv, install & build
         run: |
-          python -m venv venv
+          # 1. Create & activate venv
+          python3 -m venv venv
           source venv/bin/activate
+
+          # 2. Install dependencies into this venv
           pip install --upgrade pip
           pip install networkx pyinstaller
 
-      - name: Build macOS executable
-        run: |
-          # clean old build artifacts
+          # 3. Clean any prior build artifacts
           rm -rf scripts/build scripts/dist
 
-          # build from the scripts directory without cd
+          # 4. Run PyInstaller directly (now on PATH)
           pyinstaller --clean scripts/maxcut_cli.py \
             --onefile \
             --name maxcut_cli \
